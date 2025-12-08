@@ -1,0 +1,27 @@
+{
+  "name": "Vision Academy",
+  "short_name": "Vision",
+  "description": "Professional trading platform and crypto academy",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#021e73",
+  "theme_color": "#021e73",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo-vision.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/logo-vision.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["finance", "business", "productivity", "education"],
+  "lang": "pt-BR",
+  "dir": "ltr"
+}

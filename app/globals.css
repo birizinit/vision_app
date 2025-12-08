@@ -1,0 +1,202 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Light mode - white and light gray theme */
+  --background: oklch(0.98 0 0); /* Almost white background */
+  /* Making all text truly black in light mode */
+  --foreground: oklch(0 0 0); /* Pure black text */
+  --card: oklch(0.95 0 0); /* Light gray cards */
+  --card-foreground: oklch(0 0 0); /* Pure black text on cards */
+  --popover: oklch(0.98 0 0); /* White popover */
+  --popover-foreground: oklch(0 0 0); /* Pure black text on popovers */
+  /* Changed primary color to blue #021e73 */
+  --primary: oklch(0.35 0.12 250); /* Blue #021e73 primary */
+  --primary-foreground: oklch(1 0 0); /* White text on blue */
+  --secondary: oklch(0.45 0.10 250); /* Blue #35528C secondary */
+  --secondary-foreground: oklch(1 0 0); /* White text on blue */
+  --muted: oklch(0.9 0 0); /* Light muted gray */
+  --muted-foreground: oklch(0 0 0); /* Pure black text instead of gray */
+  --accent: oklch(0.25 0.15 250); /* Blue #000553 accent */
+  --accent-foreground: oklch(1 0 0); /* White text on blue */
+  --destructive: oklch(0.55 0.25 15); /* Red for losses */
+  --destructive-foreground: oklch(0.98 0 0); /* White text on red */
+  --border: oklch(0.75 0 0 / 0.3); /* Subtle borders */
+  --input: oklch(0.95 0 0); /* Light input background */
+  /* Changed ring color to blue */
+  --ring: oklch(0.35 0.12 250 / 0.6); /* Blue focus ring */
+  /* Updated chart colors to use blue */
+  --chart-1: oklch(0.35 0.12 250); /* Blue chart color */
+  --chart-2: oklch(0.65 0 0); /* Medium gray chart color */
+  --chart-3: oklch(0.65 0.25 15); /* Red chart color */
+  --chart-4: oklch(0.7 0.15 120); /* Green chart color */
+  --chart-5: oklch(0.6 0.2 45); /* Orange chart color */
+  --radius: 0.75rem; /* Rounded corners */
+  --sidebar: oklch(0.95 0 0);
+  --sidebar-foreground: oklch(0 0 0);
+  /* Changed sidebar primary to blue */
+  --sidebar-primary: oklch(0.35 0.12 250);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.45 0.10 250);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.75 0 0 / 0.3);
+  /* Changed sidebar ring to blue */
+  --sidebar-ring: oklch(0.35 0.12 250 / 0.6);
+}
+
+.dark {
+  /* Dark mode - black and bright green theme */
+  --background: oklch(0.05 0 0); /* Deep black background */
+  /* Changed foreground to blue tint */
+  --foreground: oklch(0.85 0.05 250); /* Blue-tinted text */
+  --card: oklch(0.12 0 0); /* Dark gray cards */
+  /* Changed card foreground to blue tint */
+  --card-foreground: oklch(0.85 0.05 250); /* Blue-tinted text on cards */
+  --popover: oklch(0.08 0 0); /* Dark popover */
+  /* Changed popover foreground to blue tint */
+  --popover-foreground: oklch(0.85 0.05 250); /* Blue-tinted text on popovers */
+  /* Changed primary to blue #021e73 */
+  --primary: oklch(0.35 0.12 250); /* Blue primary */
+  --primary-foreground: oklch(1 0 0); /* White text on blue */
+  /* Changed secondary to blue #35528C */
+  --secondary: oklch(0.45 0.10 250); /* Blue secondary */
+  --secondary-foreground: oklch(1 0 0); /* White text on blue */
+  --muted: oklch(0.25 0 0); /* Muted gray */
+  --muted-foreground: oklch(0.55 0 0); /* Muted text */
+  /* Changed accent to blue #000553 */
+  --accent: oklch(0.25 0.15 250); /* Blue accent */
+  --accent-foreground: oklch(1 0 0); /* White text on blue */
+  --destructive: oklch(0.55 0.25 15); /* Red for losses */
+  --destructive-foreground: oklch(0.98 0 0); /* White text on red */
+  --border: oklch(0.25 0 0 / 0.3); /* Subtle borders */
+  --input: oklch(0.12 0 0); /* Dark input background */
+  /* Changed ring to blue */
+  --ring: oklch(0.35 0.12 250 / 0.6); /* Blue focus ring */
+  /* Updated chart colors to use blue */
+  --chart-1: oklch(0.35 0.12 250); /* Blue chart color */
+  --chart-2: oklch(0.65 0 0); /* Medium gray chart color */
+  --chart-3: oklch(0.65 0.25 15); /* Red chart color */
+  --chart-4: oklch(0.7 0.15 120); /* Green chart color */
+  --chart-5: oklch(0.6 0.2 45); /* Orange chart color */
+  --sidebar: oklch(0.12 0 0);
+  /* Changed sidebar foreground to blue tint */
+  --sidebar-foreground: oklch(0.85 0.05 250);
+  /* Changed sidebar primary to blue */
+  --sidebar-primary: oklch(0.35 0.12 250);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  /* Changed sidebar accent to blue */
+  --sidebar-accent: oklch(0.45 0.10 250);
+  --sidebar-accent-foreground: oklch(1 0 0);
+  --sidebar-border: oklch(0.25 0 0 / 0.3);
+  /* Changed sidebar ring to blue */
+  --sidebar-ring: oklch(0.35 0.12 250 / 0.6);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+/* Added custom animations and glassmorphism effects */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Updated pulse animation to use blue */
+@keyframes pulse-green {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.35 0.12 250 / 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 10px oklch(0.35 0.12 250 / 0);
+  }
+}
+
+.shimmer {
+  /* Updated shimmer to use blue */
+  background: linear-gradient(90deg, transparent, oklch(0.35 0.12 250 / 0.15), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Renamed class from pulse-silver to pulse-green */
+.pulse-green {
+  animation: pulse-green 2s infinite;
+}
+
+.glass {
+  backdrop-filter: blur(10px);
+  background: oklch(0.12 0 0 / 0.8);
+  border: 1px solid oklch(0.25 0 0 / 0.3);
+}
+
+/* Updated gradient classes to use blue */
+.gradient-green {
+  background: linear-gradient(135deg, oklch(0.35 0.12 250), oklch(0.45 0.10 250));
+}
+
+.gradient-green-hover {
+  background: linear-gradient(135deg, oklch(0.40 0.13 250), oklch(0.50 0.11 250));
+}
+
+/* Keep old class names for backwards compatibility but use blue colors */
+.gradient-silver {
+  background: linear-gradient(135deg, oklch(0.35 0.12 250), oklch(0.45 0.10 250));
+}
+
+.gradient-silver-hover {
+  background: linear-gradient(135deg, oklch(0.40 0.13 250), oklch(0.50 0.11 250));
+}

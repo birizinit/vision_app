@@ -19,8 +19,6 @@ import {
   BotIcon,
   PlayIcon,
   PauseIcon,
-  MoonIcon,
-  SunIcon,
 } from "lucide-react"
 import { CryptoCard } from "@/components/crypto-card"
 import { TransactionHistory } from "@/components/transaction-history"
@@ -688,14 +686,6 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
     }
   }
 
-  const [theme, setTheme] = useState<"light" | "dark">("dark")
-
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark"
-    setTheme(newTheme)
-    document.documentElement.classList.toggle("dark", newTheme === "dark")
-    localStorage.setItem("theme", newTheme)
-  }
 
   useEffect(() => {
     return () => {
@@ -711,13 +701,8 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
   }, [])
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null
-    if (savedTheme) {
-      setTheme(savedTheme)
-      document.documentElement.classList.toggle("dark", savedTheme === "dark")
-    } else {
-      document.documentElement.classList.add("dark")
-    }
+    // Sempre usar modo escuro
+    document.documentElement.classList.add("dark")
   }, [])
 
   useEffect(() => {
@@ -828,15 +813,6 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={toggleTheme}
-                className="text-muted-foreground hover:text-primary"
-                title={theme === "dark" ? "Modo Claro" : "Modo Escuro"}
-              >
-                {theme === "dark" ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
                 onClick={handleRefresh}
                 disabled={refreshing}
                 className="text-muted-foreground hover:text-primary"
@@ -857,11 +833,11 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
       </header>
 
       <div className="container mx-auto px-4 py-6 space-y-8">
-        <Card className="bg-card/90 border-border/60 overflow-hidden hover:border-primary/40 transition-all duration-300 shadow-lg">
+        <Card className="border-border/50 overflow-hidden transition-all duration-300 shadow-lg" style={{ backgroundColor: '#020b1a' }}>
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <h2 className="text-lg font-semibold text-foreground">Saldo Total</h2>
+                <h2 className="text-lg font-semibold text-white">Saldo Total</h2>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -885,13 +861,13 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
                 </div>
               ) : (
                 <>
-                  <p className="text-3xl md:text-4xl font-bold text-primary mb-1">
+                  <p className="text-3xl md:text-4xl font-bold text-white mb-1">
                     {showBalance
                       ? `$${totalBalance.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`
                       : "••••••••"}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {walletData.length > 0 ? `${walletData.length} carteiras conectadas` : "Dados atualizados"}
+                    Conta Real conectada
                   </p>
                 </>
               )}
@@ -899,15 +875,14 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
 
             <div className="flex gap-3">
               <Button
-                className="flex-1 gradient-silver hover:gradient-silver-hover text-primary-foreground font-semibold py-3 rounded-lg transition-all duration-300 hover:scale-105"
+                className="flex-[0.7] bg-blue-900 hover:bg-blue-800 text-white font-semibold py-8 rounded-lg transition-all duration-300"
                 onClick={scrollToTradingSection}
               >
                 <ArrowDownIcon className="h-4 w-4 mr-2" />
                 Depositar
               </Button>
               <Button
-                variant="outline"
-                className="flex-1 border-primary/30 text-primary hover:bg-primary/10 py-3 rounded-lg transition-all duration-300 hover:scale-105 bg-transparent"
+                className="flex-[0.3] bg-transparent border border-blue-500/50 hover:bg-border/20 text-white font-semibold py-8 rounded-lg transition-all duration-300"
                 onClick={scrollToTradingSection}
               >
                 <ArrowUpIcon className="h-4 w-4 mr-2" />
@@ -917,7 +892,7 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
           </CardContent>
         </Card>
 
-        <Card className="bg-card/90 border-border/60 overflow-hidden hover:border-primary/40 transition-all duration-300 shadow-lg">
+        <Card className="border-border/50 overflow-hidden transition-all duration-300 shadow-lg" style={{ backgroundColor: '#020b1a' }}>
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
@@ -925,8 +900,9 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
                   <BotIcon className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-semibold text-foreground">Inteligência Artificial</h2>
-                  <p className="text-sm text-muted-foreground">
+                  <h2 className="text-lg font-semibold text-white">Inteligência Artificial</h2>
+                  <p className="text-sm text-muted-foreground flex items-center gap-1">
+                    <span className={`h-2 w-2 rounded-full ${botStats.isRunning ? "bg-green-500" : "bg-red-500"}`}></span>
                     {botStats.isRunning ? "Operando automaticamente" : "Parado"}
                   </p>
                 </div>
@@ -934,7 +910,7 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
 
               <div className="flex flex-col gap-3 sm:gap-4">
                 <div className="flex items-center justify-center bg-muted/60 p-3 rounded-lg border border-border/40">
-                  <span className="text-sm font-medium text-primary">Operação: Wallet Real</span>
+                  <span className="text-sm font-medium text-muted-foreground">Operação: Wallet Real</span>
                 </div>
 
                 <Button
@@ -944,7 +920,7 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
                       ? "bg-red-500 hover:bg-red-600" 
                       : isBotConfigValid() 
                         ? "bg-green-500 hover:bg-green-600" 
-                        : "gradient-silver hover:gradient-silver-hover"
+                        : "bg-gray-500 hover:bg-gray-600"
                   } text-white font-semibold py-3 text-sm whitespace-nowrap`}
                 >
                   {botEnabled ? (
@@ -962,11 +938,11 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
               </div>
             </div>
 
-            <div className="mb-6 p-4 rounded-lg bg-muted/60 border border-border/40">
-              <h3 className="text-sm font-semibold text-foreground mb-4">Configurações da IA</h3>
+            <div className="mb-6">
+              <h3 className="text-sm font-semibold text-white mb-4 uppercase">Configurações da IA</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="baseTradeAmount" className="text-xs font-medium text-foreground">
+                <div className="p-8 rounded-lg border border-border/40" style={{ backgroundColor: '#0a1527', minHeight: '150px' }}>
+                  <Label htmlFor="baseTradeAmount" className="text-xs font-medium uppercase block mb-3" style={{ color: '#29384f' }}>
                     Valor Base de Entrada ($)
                   </Label>
                   <Input
@@ -990,12 +966,13 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
                       }
                     }}
                     disabled={botEnabled}
-                    className="bg-background/50 border-border/40 text-foreground"
+                    className="border-0 text-5xl font-bold text-white p-0 h-auto focus-visible:ring-0"
+                    style={{ fontSize: '2.4rem', lineHeight: '1.2', backgroundColor: '#0a1527' }}
                   />
-                  <p className="text-xs text-muted-foreground">Valor inicial das operações</p>
+                  <p className="text-xs text-muted-foreground mt-3">Valor inicial das operações</p>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="protections" className="text-xs font-medium text-foreground">
+                <div className="p-8 rounded-lg border border-border/40" style={{ backgroundColor: '#0a1527', minHeight: '150px' }}>
+                  <Label htmlFor="protections" className="text-xs font-medium uppercase block mb-3" style={{ color: '#29384f' }}>
                     Proteções (Martingale)
                   </Label>
                   <Input
@@ -1023,15 +1000,15 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
                       }
                     }}
                     disabled={botEnabled}
-                    className="bg-background/50 border-border/40 text-foreground"
+                    className="border-0 text-5xl font-bold text-white p-0 h-auto focus-visible:ring-0"
+                    style={{ fontSize: '2.4rem', lineHeight: '1.2', backgroundColor: '#0a1527' }}
                   />
-
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-muted-foreground mt-3">
                     {protections === 0 ? "Sem proteção" : `Dobra ${protections}x após loss`}
                   </p>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="stopWin" className="text-xs font-medium text-foreground">
+                <div className="p-8 rounded-lg border border-border/40" style={{ backgroundColor: '#0a1527', minHeight: '150px' }}>
+                  <Label htmlFor="stopWin" className="text-xs font-medium uppercase block mb-3" style={{ color: '#29384f' }}>
                     Stop Win (% da Banca)
                   </Label>
                   <Input
@@ -1059,13 +1036,13 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
                       }
                     }}
                     disabled={botEnabled}
-                    className="bg-background/50 border-border/40 text-foreground"
+                    className="border-0 text-5xl font-bold text-white p-0 h-auto focus-visible:ring-0"
+                    style={{ fontSize: '2.4rem', lineHeight: '1.2', backgroundColor: '#0a1527' }}
                   />
-
-                  <p className="text-xs text-muted-foreground">${((totalBalance * stopWinPercent) / 100).toFixed(2)}</p>
+                  <p className="text-xs text-muted-foreground mt-3">${((totalBalance * stopWinPercent) / 100).toFixed(2)}</p>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="stopLoss" className="text-xs font-medium text-foreground">
+                <div className="p-8 rounded-lg border border-border/40" style={{ backgroundColor: '#0a1527', minHeight: '150px' }}>
+                  <Label htmlFor="stopLoss" className="text-xs font-medium uppercase block mb-3" style={{ color: '#29384f' }}>
                     Stop Loss (% da Banca)
                   </Label>
                  <Input
@@ -1093,56 +1070,34 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
                       }
                     }}
                     disabled={botEnabled}
-                    className="bg-background/50 border-border/40 text-foreground"
+                    className="border-0 text-5xl font-bold text-white p-0 h-auto focus-visible:ring-0"
+                    style={{ fontSize: '2.4rem', lineHeight: '1.2', backgroundColor: '#0a1527' }}
                   />
-
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-red-500 mt-3">
                     ${((totalBalance * stopLossPercent) / 100).toFixed(2)}
                   </p>
                 </div>
               </div>
-
-              {protections > 0 && (
-                <div className="mt-4 p-3 rounded-lg bg-primary/10 border border-primary/30">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-medium text-foreground mb-1">Status do Martingale</p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Losses consecutivos: {consecutiveLosses} / {protections}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs font-medium text-foreground mb-1">Próxima entrada</p>
-                      <p className="text-lg font-bold text-primary">${currentTradeAmount.toFixed(2)}</p>
-                    </div>
-                  </div>
-                  {consecutiveLosses > 0 && (
-                    <div className="mt-2 text-xs text-yellow-500">
-                      ⚠️ Proteção {consecutiveLosses} ativa - Valor dobrado
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-6 p-3 sm:p-4 rounded-lg bg-muted/60 border border-border/40">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-6 p-3 sm:p-4 rounded-lg bg-transparent border border-blue-500/50">
               <div className="text-center p-2">
-                <p className="text-xs font-medium text-foreground mb-1">Ativos</p>
-                <p className="text-xs text-muted-foreground leading-tight">APPLE, EURGBP, MCD, BTCUSDT, ETHUSDT...</p>
+                <p className="text-xs font-medium text-muted-foreground mb-1 uppercase">Ativos</p>
+                <p className="text-xs text-white leading-tight">APPLE, EURGBP, MCD, BTCUSDT, ETHUSDT...</p>
               </div>
               <div className="text-center p-2">
-                <p className="text-xs font-medium text-foreground mb-1">Valor Atual</p>
-                <p className="text-xs text-muted-foreground">${currentTradeAmount.toFixed(2)}</p>
+                <p className="text-xs font-medium text-muted-foreground mb-1 uppercase">Valor Atual</p>
+                <p className="text-xs text-white">${currentTradeAmount.toFixed(2)}</p>
               </div>
               <div className="text-center p-2">
-                <p className="text-xs font-medium text-foreground mb-1">Expiração</p>
-                <p className="text-xs text-muted-foreground">1 Minuto</p>
+                <p className="text-xs font-medium text-muted-foreground mb-1 uppercase">Expiração</p>
+                <p className="text-xs text-white">1 Minuto</p>
               </div>
               <div className="text-center p-2">
-                <p className={`text-xs font-medium mb-1 ${botStats.profit >= 0 ? "text-green-500" : "text-red-500"}`}>
+                <p className="text-xs font-medium text-muted-foreground mb-1 uppercase">Lucro/Prejuízo</p>
+                <p className={`text-xs font-medium ${botStats.profit >= 0 ? "text-green-500" : "text-red-500"}`}>
                   ${botStats.profit.toFixed(2)}
                 </p>
-                <p className="text-xs text-muted-foreground">Lucro/Prejuízo</p>
               </div>
             </div>
 
@@ -1238,13 +1193,13 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
           </CardContent>
         </Card>
 
-        <Card className="bg-card/90 border-border/60 overflow-hidden hover:border-primary/40 transition-all duration-300 shadow-lg">
+        <Card className="border-border/50 overflow-hidden transition-all duration-300 shadow-lg" style={{ backgroundColor: '#020b1a' }}>
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <h2 className="text-lg font-semibold text-foreground">Mercado em Tempo Real</h2>
+                <h2 className="text-lg font-semibold text-white">Mercado em Tempo Real</h2>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-green-500">
                 <div className="h-2 w-2 bg-green-500 rounded-full animate-pulse"></div>
                 <span>Ao Vivo</span>
               </div>
@@ -1253,11 +1208,11 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
             {loading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 {[...Array(6)].map((_, i) => (
-                  <Card key={i} className="bg-card/90 border-border/60">
+                  <Card key={i} className="border-border/50" style={{ backgroundColor: '#0a1527' }}>
                     <CardContent className="p-4 sm:p-6">
                       <div className="animate-pulse">
                         <div className="flex items-center gap-3 mb-4">
-                          <div className="h-8 w-8 bg-muted/60 rounded-full"></div>
+                          <div className="h-10 w-10 bg-muted/60 rounded"></div>
                           <div className="h-4 w-16 bg-muted/60 rounded"></div>
                         </div>
                         <div className="h-6 w-24 bg-muted/60 rounded mb-2"></div>
@@ -1278,7 +1233,6 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
         </Card>
 
         <div className="mt-8">
-          <h2 className="text-2xl font-bold text-primary mb-6">Últimas Operações</h2>
           <TransactionHistory apiKey={apiKey} />
         </div>
       </div>

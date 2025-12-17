@@ -101,11 +101,11 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
             <img
               src="/VISION.png"
               alt="Vision Academy Logo"
-              className="h-16 w-auto filter brightness-110 drop-shadow-2xl"
+              className="h-24 w-auto filter brightness-110 drop-shadow-2xl"
             />
           </div>
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-primary">Bem-vindo de volta</h1>
+            <h1 className="text-3xl font-bold text-white">Bem-vindo de volta</h1>
             <p className="text-muted-foreground">Acesse sua conta com sua chave API</p>
           </div>
         </div>
@@ -113,7 +113,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
         {/* Login Card */}
         <Card className="bg-card/95 backdrop-blur-sm border-border/60 shadow-2xl">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center text-primary">Login</CardTitle>
+            <CardTitle className="text-2xl text-center text-white">Login</CardTitle>
             <CardDescription className="text-center">Insira sua chave API para acessar o dashboard</CardDescription>
           </CardHeader>
           <CardContent>
@@ -189,7 +189,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps) {
                 <DialogTrigger asChild>
                   <Button
                     variant="outline"
-                    className="w-full border-border/60 text-primary hover:bg-primary/10 bg-transparent"
+                    className="w-full border-border/60 text-white hover:bg-primary/10 bg-transparent"
                   >
                     <Play className="mr-2 h-4 w-4" />
                     Como obter minha chave API?

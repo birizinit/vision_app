@@ -796,37 +796,30 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
     <div className="min-h-screen bg-background animate-in fade-in-0 duration-1000">
       <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <img
-                src="/VISION.png"
-                alt="Vision Logo"
-                className="h-10 w-auto filter brightness-110 hover:brightness-125 transition-all duration-300"
-              />
-              <div className="hidden md:block">
-                <h1 className="text-lg font-bold text-primary">Vision Academy</h1>
-                <p className="text-xs text-muted-foreground">Tempo real • Atualizado agora</p>
+          <div className="flex items-center gap-4">
+            <div className="flex-1">
+              <div className="px-6 py-3 rounded-lg bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 shadow-[0_0_20px_rgba(59,130,246,0.6)] border border-blue-300/40 flex items-center justify-between">
+                <h1 className="text-base font-bold text-gray-800 tracking-wider uppercase flex-1 text-center">Vision Trading - The Future</h1>
+                <div className="flex items-center gap-3 flex-shrink-0">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleRefresh}
+                    disabled={refreshing}
+                    className="text-gray-800 hover:text-gray-900"
+                  >
+                    <RefreshCwIcon className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={onLogout}
+                    className="text-gray-800 hover:text-gray-900"
+                  >
+                    <LogOutIcon className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleRefresh}
-                disabled={refreshing}
-                className="text-muted-foreground hover:text-primary"
-              >
-                <RefreshCwIcon className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`} />
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onLogout}
-                className="text-muted-foreground hover:text-destructive"
-              >
-                <LogOutIcon className="h-4 w-4" />
-              </Button>
             </div>
           </div>
         </div>
@@ -1261,21 +1254,21 @@ export function Dashboard({ apiKey, onLogout }: DashboardProps) {
       <AlertDialog open={showWelcomeDialog} onOpenChange={setShowWelcomeDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Bem-vindo ao Vision Academy!</AlertDialogTitle>
+            <AlertDialogTitle className="text-white">Bem-vindo ao Vision Academy!</AlertDialogTitle>
             <AlertDialogDescription>
               Antes de iniciar a operação automática com a Inteligência Artificial, você precisa configurar:
               <ul className="mt-4 space-y-2 list-disc list-inside">
-                <li className="text-foreground">
-                  <strong>Valor de Entrada:</strong> O valor inicial de cada operação
+                <li className="text-white">
+                  <strong className="text-white">Valor de Entrada:</strong> O valor inicial de cada operação
                 </li>
-                <li className="text-foreground">
-                  <strong>Proteções:</strong> Número de proteções Martingale (dobro após cada perda)
+                <li className="text-white">
+                  <strong className="text-white">Proteções:</strong> Número de proteções Martingale (dobro após cada perda)
                 </li>
-                <li className="text-foreground">
-                  <strong>Stop Win:</strong> Porcentagem da banca para parar após ganhos
+                <li className="text-white">
+                  <strong className="text-white">Stop Win:</strong> Porcentagem da banca para parar após ganhos
                 </li>
-                <li className="text-foreground">
-                  <strong>Stop Loss:</strong> Porcentagem da banca para parar após perdas
+                <li className="text-white">
+                  <strong className="text-white">Stop Loss:</strong> Porcentagem da banca para parar após perdas
                 </li>
               </ul>
               <p className="mt-4 text-sm text-muted-foreground">
